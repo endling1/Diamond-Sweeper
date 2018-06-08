@@ -1,0 +1,7 @@
+const ActionTypes = {
+	RELOAD_BOARD: 'RELOAD_BOARD',
+	SQUARE_CLICKED: 'SQUARE_CLICKED',
+	TOGGLE_HINTS: 'TOGGLE_HINTS'
+}
+
+export default ActionTypes
