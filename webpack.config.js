@@ -1,11 +1,19 @@
+const webpack = require('webpack')
 const path = require('path')
+const PROD = JSON.parse(process.env.PROD_ENV || '0')
+
+// To create prod build, PROD_ENV=1 webpack
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
   entry: './src/root.js',
   output: {
-    filename: 'bundle.js',
+    filename: PROD ? 'bundle.min.js' : 'bundle.js',
     path: path.resolve(__dirname, 'public')
   },
+  plugins: PROD ? [
+    new UglifyJSPlugin({})
+  ] : [],
   module: {
     rules: [
       {
@@ -19,7 +27,6 @@ module.exports = {
           loader: 'file-loader',
           options: {
             name: 'img/[name].[ext]',
-            // publicPath: path.resolve(__dirname, 'public/')
           }
         }
       }
