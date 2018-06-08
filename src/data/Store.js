@@ -69,7 +69,7 @@ class Store extends ReduceStore {
 		switch(action.type) {
 			case ActionTypes.SQUARE_CLICKED: 
 				const { row, column } = action.data
-				const nextState = state
+				const nextState = Object.assign({}, state)
 				const { board, enableHints } = nextState
 				
 				if(this.metaData[row][column] === DIAMOND) {

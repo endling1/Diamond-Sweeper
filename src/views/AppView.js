@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
-import ButtonBase from '@material-ui/core/ButtonBase'
+import Paper from '@material-ui/core/Paper'
 import Store from '../data/Store'
 import Actions from '../data/Actions'
 import { BLANK, QUESTION_MARK, DIAMOND, LEFT_ARROW, RIGHT_ARROW,
@@ -13,18 +13,20 @@ import questionImage from '../img/question.png'
 import diamondImage from '../img/diamond.png'
 
 const styles = theme => ({
-	image: {
-		maxWidth: '50%',
-   		height: '50%',
-   		border: '1px solid'
+	square: {
+		width: '80%',
+		height: '50px',
+		backgroundSize: '100% 50px',
+		backgroundPosition: 'center',
+		backgroundRepeat: 'none',
+		margin: '0 auto',
+    	padding: '1px',
+    	position: 'relative',
 	},
-	gridList: {
-		width: 500,
-		height: 450
-	},
-	gridListTile: {
-		imgFullHeight: true,
-		imgFullWidth: true
+	tile: {
+		border: '1px solid black',
+		cursor: 'pointer',
+		margin: '1px'
 	}
 })
 
@@ -46,13 +48,20 @@ function BoardComponent(props) {
 
 	return (
 		<Grid container>
-			<Grid item xs={6}>
-				<GridList cols={8} cellHeight={'auto'} spacing={0}>
+			<Grid item xs={12} lg={6}>
+				<GridList cols={9} cellHeight={'auto'} spacing={8}>
 					{
 						board.map((row, rowIndex) => (
 							row.map((square, colIndex) => (
-								<GridListTile className={classes.gridListTile} key={`${rowIndex}:${colIndex}`} cols={1}>
-									<img className={classes.image} src={imageSource(rowIndex, colIndex)}/>
+								<GridListTile 
+								key={`${rowIndex}:${colIndex}`} 
+								cols={1}
+								className={classes.tile}
+								onClick={squareClicked.bind(null, rowIndex, colIndex)}>
+									<div 
+									className={classes.square} 
+									style={{ backgroundImage: `url(${imageSource(rowIndex, colIndex)})`}}
+									/>
 								</GridListTile>
 							))
 						))
