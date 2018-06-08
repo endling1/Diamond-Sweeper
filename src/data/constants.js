@@ -6,3 +6,4 @@ export const RIGHT_ARROW = 4
 export const UP_ARROW = 5
 export const DOWN_ARROW = 6
 export const MAX = 1000000
+export const APP_NAME = 'DIAMOND_SWEEPER'

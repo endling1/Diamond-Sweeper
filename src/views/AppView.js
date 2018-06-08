@@ -20,6 +20,10 @@ import leftArrow from '../img/leftArrow.png'
 import rightArrow from '../img/rightArrow.png'
 import upArrow from '../img/upArrow.png'
 import downArrow from '../img/downArrow.png'
+import Card from '@material-ui/core/Card'
+import CardActions from '@material-ui/core/CardActions'
+import CardContent from '@material-ui/core/CardContent'
+import Button from '@material-ui/core/Button'
 
 const styles = theme => ({
 	square: {
@@ -40,13 +44,22 @@ const styles = theme => ({
 	bottom: {
 		marginTop: '16px',
 		width: '80%'
+	},
+	cardList: {
+		overflowY: 'scroll',
+		height: '50vh',
+		border: '1px solid black',
+	},
+	card: {
+		border: '1px solid gray',
+		margin: '4px'
 	}
 })
 
 function BoardComponent(props) {
 	const { classes, state } = props
-	const { board, enableHints } = state.data
-	const { squareClicked, toggleHints } = state
+	const { board, enableHints, score, gameOver, savedGames } = state.data
+	const { squareClicked, toggleHints, saveGame, newGame, loadGame } = state
 
 	function imageSource(row, column) {
 		switch(board[row][column]) {
@@ -64,6 +77,21 @@ function BoardComponent(props) {
 				return upArrow
 			default:
 				return ''
+		}
+	}
+
+	function bottomNavigationClick(event, value) {
+		switch(value) {
+			case 0:
+				saveGame()
+				break
+			case 1:
+				newGame()
+				break
+			case 2:
+				toggleHints()
+				break
+			default:
 		}
 	}
 
@@ -88,7 +116,47 @@ function BoardComponent(props) {
 						))
 					}
 				</GridList>
-				<BottomNavigation className={classes.bottom} showLabels>
+			</Grid>
+
+			<Grid item xs={12} lg={6}>
+				<div>
+					<h1> Score: {score} </h1>
+					{
+						gameOver ? (
+							<h1> Game Over! All diamonds found! </h1>
+						) : (
+							null
+						)
+					}
+				</div>
+				<h3> Last 5 Saved Games </h3>
+				<div className={classes.cardList}>
+					{
+						savedGames.map((game, i) => (
+							<Card key={i} className={classes.card}>
+								<CardContent>
+									<h3> Game Number : {i} </h3>
+									<h3> Score : {game.score} </h3>
+									<h3> Diamonds found : {game.diamondsFound}</h3>
+								</CardContent>
+								<CardActions>
+									<Button 
+									size={'small'}
+									onClick={loadGame.bind(null, i)}
+									> Load Game </Button>
+								</CardActions>
+							</Card>
+						))
+					}
+				</div>
+			</Grid>
+
+			<Grid item xs={12} lg={6}>
+				<BottomNavigation
+				value={enableHints ? 2 : -1}
+				className={classes.bottom} 
+				showLabels
+				onChange={bottomNavigationClick}>
 					<BottomNavigationAction label='Save' icon={<SaveIcon />} />
 					<BottomNavigationAction label='New' icon={<RefreshIcon/>} />
 					<BottomNavigationAction label='Hint' icon={<HintIcon/>} />
@@ -115,7 +183,10 @@ class AppView extends React.Component {
 		return {
 			data: Store.getState(),
 			squareClicked: Actions.squareClicked,
-			toggleHints: Actions.toggleHints
+			toggleHints: Actions.toggleHints,
+			saveGame: Actions.saveGame,
+			newGame: Actions.newGame,
+			loadGame: Actions.loadGame
 		}
 	}
 

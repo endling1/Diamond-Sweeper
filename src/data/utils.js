@@ -2,7 +2,7 @@ import { BLANK, QUESTION_MARK, DIAMOND, LEFT_ARROW, RIGHT_ARROW,
 	UP_ARROW, DOWN_ARROW, MAX } from './constants'
 
 // Creates an array where array[i] = i
-function createIndexArray(size) {
+export const createIndexArray = (size) => {
 	const array = []
 	for(let i = 0; i < size; i++) {
 		array.push(i)
@@ -11,7 +11,7 @@ function createIndexArray(size) {
 }
 
 // Deep copies 2d array
-function deepCopy2d(array) {
+export const deepCopy2d = (array) => {
 	const copy = array.map((row) => [...row])
 	return copy
 }

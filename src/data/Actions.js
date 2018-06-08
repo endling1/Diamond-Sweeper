@@ -15,6 +15,22 @@ const Actions = {
 		Dispatcher.dispatch({
 			type: ActionTypes.TOGGLE_HINTS
 		})
+	},
+	saveGame() {
+		Dispatcher.dispatch({
+			type: ActionTypes.SAVE_GAME
+		})
+	},
+	newGame() {
+		Dispatcher.dispatch({
+			type: ActionTypes.NEW_GAME
+		})
+	},
+	loadGame(i) {
+		Dispatcher.dispatch({
+			type: ActionTypes.LOAD_GAME,
+			gameIndex: i
+		})
 	}
 }
 
