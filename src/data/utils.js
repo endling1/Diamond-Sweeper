@@ -49,6 +49,7 @@ export const createBoard = (size, fillElement) => {
 * to closest diamond using multipoint BFS
 */
 export const computeDistances = (board, diamondPos) => {
+	//const board = deepCopy2d(board)
 	const size = board.length
 
 	diamondPos.forEach((pos) => {
@@ -96,6 +97,8 @@ export const computeDistances = (board, diamondPos) => {
 			}
 		}
 	})
+
+	return board
 }
 
 /*

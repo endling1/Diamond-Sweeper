@@ -26,8 +26,7 @@ class Store extends ReduceStore {
 			temp[diamondRowPos[i]][diamondColumnPos[i]] = 0
 		}
 
-		computeDistances(temp, diamondPos)
-		const board = replaceDistanceByArrow(temp)
+		const board = replaceDistanceByArrow(computeDistances(temp, diamondPos))
 
 		return board
 	}
