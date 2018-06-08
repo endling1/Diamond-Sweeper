@@ -5,12 +5,21 @@ import Grid from '@material-ui/core/Grid'
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import Paper from '@material-ui/core/Paper'
+import BottomNavigation from '@material-ui/core/BottomNavigation'
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
+import SaveIcon from '@material-ui/icons/Save'
+import RefreshIcon from '@material-ui/icons/Refresh'
+import HintIcon from '@material-ui/icons/WbIncandescent'
 import Store from '../data/Store'
 import Actions from '../data/Actions'
 import { BLANK, QUESTION_MARK, DIAMOND, LEFT_ARROW, RIGHT_ARROW,
 	UP_ARROW, DOWN_ARROW } from '../data/constants'
 import questionImage from '../img/question.png'
 import diamondImage from '../img/diamond.png'
+import leftArrow from '../img/leftArrow.png'
+import rightArrow from '../img/rightArrow.png'
+import upArrow from '../img/upArrow.png'
+import downArrow from '../img/downArrow.png'
 
 const styles = theme => ({
 	square: {
@@ -27,6 +36,10 @@ const styles = theme => ({
 		border: '1px solid black',
 		cursor: 'pointer',
 		margin: '1px'
+	},
+	bottom: {
+		marginTop: '16px',
+		width: '80%'
 	}
 })
 
@@ -41,6 +54,14 @@ function BoardComponent(props) {
 				return questionImage
 			case DIAMOND:
 				return diamondImage
+			case LEFT_ARROW:
+				return leftArrow
+			case RIGHT_ARROW:
+				return rightArrow
+			case DOWN_ARROW:
+				return downArrow
+			case UP_ARROW:
+				return upArrow
 			default:
 				return ''
 		}
@@ -67,6 +88,11 @@ function BoardComponent(props) {
 						))
 					}
 				</GridList>
+				<BottomNavigation className={classes.bottom} showLabels>
+					<BottomNavigationAction label='Save' icon={<SaveIcon />} />
+					<BottomNavigationAction label='New' icon={<RefreshIcon/>} />
+					<BottomNavigationAction label='Hint' icon={<HintIcon/>} />
+				</BottomNavigation>
 			</Grid>
 		</Grid>
 	)
